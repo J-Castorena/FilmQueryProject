@@ -87,8 +87,9 @@ public class FilmQueryApp {
 
 	private void showFilmInfo(Film film) {
 		System.out.println("The following film was found: ");
-		System.out.println("Title: " + film.getTitle() + " Release Year: " + film.getReleaseYear() + " Rating: "
-				+ film.getRating() + " Description: " + film.getDescription());
+		System.out.println("Title: " + film.getTitle() + ", Release Year: " + film.getReleaseYear() + ", Language: " + film.getFilmLanguage() + ", Rating: "
+				+ film.getRating() + ", Description: " + film.getDescription() 
+				+ ".\nCast: " + film.getActors());
 	}
 
 	private void lookUpFilmByKeyword(Scanner input) {

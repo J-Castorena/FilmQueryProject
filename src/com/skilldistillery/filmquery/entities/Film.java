@@ -9,6 +9,7 @@ public class Film {
 	private String description;
 	private String releaseYear;
 	private int languageId;
+	private String filmLanguage;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length;
@@ -20,15 +21,18 @@ public class Film {
 	public Film() {
 	}
 
-	public Film(int id, String title, String description, String releaseYear, int languageId, int rentalDuration,
-			double rentalRate, int length, double replacementCost, String rating, String specialFeatures,
-			List<Actor> actors) {
+	
+
+	public Film(int id, String title, String description, String releaseYear, int languageId, String filmLanguage,
+			int rentalDuration, double rentalRate, int length, double replacementCost, String rating,
+			String specialFeatures, List<Actor> actors) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.releaseYear = releaseYear;
 		this.languageId = languageId;
+		this.filmLanguage = filmLanguage;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.length = length;
@@ -37,6 +41,8 @@ public class Film {
 		this.specialFeatures = specialFeatures;
 		this.actors = actors;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -77,6 +83,18 @@ public class Film {
 	public void setLanguageId(int languageId) {
 		this.languageId = languageId;
 	}
+	
+	public String getFilmLanguage() {
+		return filmLanguage;
+	}
+
+
+
+	public void setFilmLanguage(String filmLanguage) {
+		this.filmLanguage = filmLanguage;
+	}
+
+
 
 	public int getRentalDuration() {
 		return rentalDuration;
@@ -134,6 +152,8 @@ public class Film {
 		this.actors = actors;
 	}
 
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -147,6 +167,8 @@ public class Film {
 		builder.append(releaseYear);
 		builder.append(", languageId=");
 		builder.append(languageId);
+		builder.append(", filmLanguage=");
+		builder.append(filmLanguage);
 		builder.append(", rentalDuration=");
 		builder.append(rentalDuration);
 		builder.append(", rentalRate=");
@@ -165,11 +187,15 @@ public class Film {
 		return builder.toString();
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(actors, description, id, languageId, length, rating, releaseYear, rentalDuration,
-				rentalRate, replacementCost, specialFeatures, title);
+		return Objects.hash(actors, description, filmLanguage, id, languageId, length, rating, releaseYear,
+				rentalDuration, rentalRate, replacementCost, specialFeatures, title);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -180,12 +206,14 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(actors, other.actors) && Objects.equals(description, other.description) && id == other.id
-				&& languageId == other.languageId && length == other.length && Objects.equals(rating, other.rating)
+		return Objects.equals(actors, other.actors) && Objects.equals(description, other.description)
+				&& Objects.equals(filmLanguage, other.filmLanguage) && id == other.id && languageId == other.languageId
+				&& length == other.length && Objects.equals(rating, other.rating)
 				&& Objects.equals(releaseYear, other.releaseYear) && rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
 				&& Double.doubleToLongBits(replacementCost) == Double.doubleToLongBits(other.replacementCost)
 				&& Objects.equals(specialFeatures, other.specialFeatures) && Objects.equals(title, other.title);
 	}
+
 
 }
