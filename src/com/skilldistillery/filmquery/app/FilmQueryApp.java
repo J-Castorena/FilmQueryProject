@@ -1,5 +1,6 @@
 package com.skilldistillery.filmquery.app;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,22 +15,22 @@ public class FilmQueryApp {
 
 	public static void main(String[] args) {
 		FilmQueryApp app = new FilmQueryApp();
-		app.test();
-//    app.launch();
+//		app.test();
+		app.launch();
 	}
 
-	private void test() {
-		Film film = db.findFilmById(1);
-		System.out.println(film);
-		Actor actor = db.findActorById(2000);
-		System.out.println(actor);
-		List<Actor> actors = db.findActorsByFilmId(2);
-		for (Actor actor2 : actors) {
-			System.out.println(actor2);
-		}
-		
-		System.out.println(actors);
-	}
+//	private void test() {
+//		Film film = db.findFilmById(1);
+//		System.out.println(film);
+//		Actor actor = db.findActorById(2000);
+//		System.out.println(actor);
+//		List<Actor> actors = db.findActorsByFilmId(2);
+//		for (Actor actor2 : actors) {
+//			System.out.println(actor2);
+//		}
+//		
+//		System.out.println(actors);
+//	}
 
 	private void launch() {
 		Scanner input = new Scanner(System.in);
@@ -42,6 +43,46 @@ public class FilmQueryApp {
 	private void startUserInterface(Scanner input) {
 		// TODO Display menu
 		// film not found if null
+		boolean run = true;
+		while (run) {
+			try {
+				displayMenu();
+				int userInput = input.nextInt();
+				switch(userInput) {
+				case 1:
+					findFilmById(input);
+					break;
+					
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please choose a valid option.");
+				input.nextLine();
+			}
+		}
 	}
 
+	private void displayMenu() {
+		System.out.println("+-------------------------------------+");
+		System.out.println("|              Film Query             |");
+		System.out.println("|                                     |");
+		System.out.println("| 1. Look up film by id               |");
+		System.out.println("| 2. Look up film by a search keyword |");
+		System.out.println("| 3. Exit                             |");
+		System.out.println("|                                     |");
+		System.out.println("+-------------------------------------+");
+	}
+
+	private void findFilmById(Scanner input) {
+		System.out.println("Please enter the ID of the film you are looking for: ");
+		int userInput = input.nextInt();
+		Film film = db.findFilmById(userInput);
+		if (film != null) {
+			showFilmInfo(film);
+		}
+	}
+	
+	private void showFilmInfo(Film film) {
+		System.out.println("The following film was found: ");
+		System.out.println("Title: " + film.getTitle() + " Release Year: " + film.getReleaseYear() + " Rating: " + film.getRating() + " Description: " + film.getDescription());
+	}
 }
