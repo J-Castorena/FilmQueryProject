@@ -56,7 +56,13 @@ public class FilmQueryApp {
 				case 2:
 					lookUpFilmByKeyword(input);
 					break;
-
+				case 3:
+					System.out.println("Goodbye!");
+					run = false;
+					break;
+				default:
+					System.out.println("Invalid selection.");
+					break;
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Please choose a valid option.");
