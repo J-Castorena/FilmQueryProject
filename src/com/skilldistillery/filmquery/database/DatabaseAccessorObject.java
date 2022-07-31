@@ -116,4 +116,41 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actors;
 	}
 
+	public List<Film> findFilmByKeyword(String keyword) {
+		List<Film> films = new ArrayList<>();
+		String sql = "SELECT * FROM film WHERE title LIKE ? OR description LIKE ?";
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
+			ResultSet results = stmt.executeQuery();
+			while (results.next()) {
+				int id = results.getInt("id");
+				String title = results.getString("title");
+				String description = results.getString("description");
+				String releaseYear = results.getString("release_year");
+				int languageId = results.getInt("language_id");
+				int rentalDuration = results.getInt("rental_duration");
+				double rentalRate = results.getDouble("rental_rate");
+				int length = results.getInt("length");
+				double replacementCost = results.getDouble("replacement_cost");
+				String rating = results.getString("rating");
+				String specialFeatures = results.getString("special_features");
+				List<Actor> actors = findActorsByFilmId(id);
+				Film film = new Film(id, title, description, releaseYear, languageId, rentalDuration, rentalRate,
+						length, replacementCost, rating, specialFeatures, actors);
+				films.add(film);
+			}
+			
+			results.close();
+			stmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return films;
+	}
+
 }

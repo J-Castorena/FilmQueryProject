@@ -48,11 +48,15 @@ public class FilmQueryApp {
 			try {
 				displayMenu();
 				int userInput = input.nextInt();
-				switch(userInput) {
+				input.nextLine();
+				switch (userInput) {
 				case 1:
 					findFilmById(input);
 					break;
-					
+				case 2:
+					lookUpFilmByKeyword(input);
+					break;
+
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Please choose a valid option.");
@@ -66,7 +70,7 @@ public class FilmQueryApp {
 		System.out.println("|              Film Query             |");
 		System.out.println("|                                     |");
 		System.out.println("| 1. Look up film by id               |");
-		System.out.println("| 2. Look up film by a search keyword |");
+		System.out.println("| 2. Look up film by keyword          |");
 		System.out.println("| 3. Exit                             |");
 		System.out.println("|                                     |");
 		System.out.println("+-------------------------------------+");
@@ -80,9 +84,24 @@ public class FilmQueryApp {
 			showFilmInfo(film);
 		}
 	}
-	
+
 	private void showFilmInfo(Film film) {
 		System.out.println("The following film was found: ");
-		System.out.println("Title: " + film.getTitle() + " Release Year: " + film.getReleaseYear() + " Rating: " + film.getRating() + " Description: " + film.getDescription());
+		System.out.println("Title: " + film.getTitle() + " Release Year: " + film.getReleaseYear() + " Rating: "
+				+ film.getRating() + " Description: " + film.getDescription());
+	}
+
+	private void lookUpFilmByKeyword(Scanner input) {
+		System.out.println("Please enter a keyword for the film you are looking for: ");
+		String userInput = input.nextLine();
+		List<Film> films = db.findFilmByKeyword(userInput);
+		if (films.size() == 0) {
+			System.out.println("No films were found. ");
+		}
+		if (films != null) {
+			for (Film film : films) {
+				showFilmInfo(film);
+			}
+		}
 	}
 }
